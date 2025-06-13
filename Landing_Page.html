@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Creative Landing Page</title>
+<style>
+  /* Reset some default browser styles */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+    color: #333;
+    line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(102,126,234,0.3);
+  }
+  header h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: #fbbf24;
+  }
+  .intro {
+    background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+    color: #fff;
+    padding: 6rem 2rem 8rem;
+    text-align: center;
+    position: relative;
+  }
+  .intro::after {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 0;
+  }
+  .intro-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .intro h2 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  }
+  .intro p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  }
+  .btn-primary {
+    background-color: #fbbf24;
+    color: #1a202c;
+    border: none;
+    padding: 0.85rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(251,191,36,0.6);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-transform: uppercase;
+  }
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background-color: #f59e0b;
+    box-shadow: 0 6px 14px rgba(245,158,11,0.8);
+    outline: none;
+  }
+  main {
+    max-width: 1200px;
+    margin: 3rem auto 4rem;
+    padding: 0 1.5rem;
+  }
+  .features {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .feature {
+    flex: 1 1 30%;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 4px 15px rgba(118,75,162,0.15);
+    transition: transform 0.3s ease;
+  }
+  .feature:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(118,75,162,0.3);
+  }
+  .feature h3 {
+    margin-top: 0;
+    color: #5a3e85;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .feature p {
+    color: #555;
+    font-size: 1rem;
+  }
+  .boxes-section {
+    background-color: #e0d7f3;
+    border-radius: 14px;
+    padding: 3rem 2rem;
+    margin-top: 4rem;
+  }
+  .boxes-container {
+    display: flex;
+    gap: 1.8rem;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  .box {
+    background-color: #fff;
+    border-radius: 14px;
+    padding: 1.6rem 2rem;
+    box-shadow: 0 3px 15px rgba(118,75,162,0.2);
+    flex: 1 1 28%;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+  }
+  .box:hover {
+    box-shadow: 0 10px 20px rgba(118,75,162,0.35);
+  }
+  .box h4 {
+    color: #472a71;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+  .box p {
+    color: #4a4a4a;
+    font-size: 1rem;
+  }
+  footer {
+    background-color: #472a71;
+    color: #ddd;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.8px;
+    user-select: none;
+  }
+  @media (max-width: 900px) {
+    .features {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .feature {
+      flex: 1 1 100%;
+    }
+    .boxes-container {
+      flex-direction: column;
+    }
+    .box {
+      flex: 1 1 100%;
+      margin-bottom: 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>NovaTech</h1>
+  <nav>
+    <a href="#features">Features</a>
+    <a href="#boxes">Why Choose Us</a>
+    <a href="#footer">Contact</a>
+  </nav>
+</header>
+
+<section class="intro" role="banner">
+  <div class="intro-content">
+    <h2>Landing Pages</h2>
+    <p>This NovaTech</p>
+    <button class="btn-primary" type="button" aria-label="Get Started">Get Started</button>
+  </div>
+</section>
+
+<main>
+    
+  <section id="features" class="features" aria-label="Features section">
+    <article class="feature">
+      <h3>Innovative Product</h3>
+      <p>A clear tech product that solves a real-world problem.</p>
+    </article>
+    <article class="feature">
+      <h3>Robust Data Strategy</h3>
+      <p>Data collection, processing, and analytics.</p>
+    </article>
+    <article class="feature">
+      <h3>Strong Engineering Talent</h3>
+      <p>Open to experimentation, rapid prototyping. Encourages learning, mentorship, and collaboration.</p>
+    </article>
+  </section>
+
+  <section id="boxes" class="boxes-section" aria-label="Why choose us">
+    <h3 style="text-align:center; color:#472a71; font-weight: 800; margin-bottom: 2rem;">Why Choose Us</h3>
+    <div class="boxes-container">
+      <div class="box">
+        <h4>Innovative Technology</h4>
+        <p>We use cutting-edge tech to future-proof your success.</p>
+      </div>
+      <div class="box">
+        <h4>Proven Results</h4>
+        <p>Don’t take our word for it — look at the data.</p>
+      </div>
+      <div class="box">
+        <h4>Security</h4>
+        <p>Your data is safe with us.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="footer">
+  &copy; 2024 NovaTech. All rights reserved.
+</footer>
+</body>
+</html>
