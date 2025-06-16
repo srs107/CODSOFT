@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Basic Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="calculator.css" />
+</head>
+<body>
+  <main class="calculator" role="application" aria-label="Basic calculator">
+    <div class="display" id="display" aria-live="polite" aria-atomic="true">0</div>
+    <div class="buttons" role="group" aria-label="Calculator buttons">
+      <button class="clear" aria-label="Clear all" id="clear">C</button>
+      <button aria-label="Divide" class="operator" data-value="/">÷</button>
+      <button aria-label="Multiply" class="operator" data-value="*">×</button>
+      <button aria-label="Subtract" class="operator" data-value="-">−</button>
+
+      <button aria-label="Seven" data-value="7">7</button>
+      <button aria-label="Eight" data-value="8">8</button>
+      <button aria-label="Nine" data-value="9">9</button>
+      <button aria-label="Add" class="operator" data-value="+">+</button>
+
+      <button aria-label="Four" data-value="4">4</button>
+      <button aria-label="Five" data-value="5">5</button>
+      <button aria-label="Six" data-value="6">6</button>
+      <button aria-label="Equals" class="equal" id="equals">=</button>
+
+      <button aria-label="One" data-value="1">1</button>
+      <button aria-label="Two" data-value="2">2</button>
+      <button aria-label="Three" data-value="3">3</button>
+
+      <button aria-label="Zero" class="zero" data-value="0">0</button>
+      <button aria-label="Decimal point" data-value=".">.</button>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const display = document.getElementById('display');
+      const buttons = document.querySelectorAll('.buttons button');
+      let currentInput = '0';
+      let lastInputType = 'operator';
+
+  
+      function updateDisplay() {
+        display.textContent = currentInput;
+      }
+
+      function evaluateExpression(expression) {
+        try {
+         
+          if (!/^[0-9+\-*/. ()]+$/.test(expression)) {
+            return 'Error';
+          }
+        
+          let sanitized = expression.trim();
+          while (sanitized.length > 0 && /[+\-*/.]$/.test(sanitized)) {
+            sanitized = sanitized.slice(0, -1);
+          }
+          if (sanitized === '') return '0';
+
+         
+          const result = Function('"use strict";return (' + sanitized + ')')();
+          if (typeof result === 'number' && isFinite(result)) {
+            return +result.toFixed(8); 
+          }
+          return 'Error';
+        } catch {
+          return 'Error';
+        }
+      }
+
+     
+      function appendInput(value) {
+         if (value === '.') {
+         
+          const segments = currentInput.split(/[\+\-\*\/]/);
+          const lastSegment = segments[segments.length - 1];
+          if (lastSegment.includes('.')) {
+            return; 
+          }
+        }
+
+        if (currentInput === '0' && /[0-9]/.test(value)) {
+          currentInput = value; 
+        } else if (
+          /[+\-*/]/.test(value) &&
+          (lastInputType === 'operator' || currentInput.slice(-1) === '.')
+        ) {
+         
+          currentInput = currentInput.slice(0, -1) + value;
+        } else {
+          currentInput += value;
+        }
+        lastInputType = /[+\-*/]/.test(value) ? 'operator' : 'number';
+        updateDisplay();
+      }
+
+      
+      function clearInput() {
+        currentInput = '0';
+        lastInputType = 'operator';
+        updateDisplay();
+      }
+
+
+      function calculate() {
+        const result = evaluateExpression(currentInput);
+        if (result === 'Error') {
+          currentInput = '0';
+          display.textContent = 'Error';
+          lastInputType = 'operator';
+        } else {
+          currentInput = result.toString();
+          lastInputType = 'equal';
+          updateDisplay();
+        }
+      }
+
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          const value = button.getAttribute('data-value');
+          if (button.id === 'clear') {
+            clearInput();
+          } else if (button.id === 'equals') {
+            calculate();
+          } else if (value) {
+            appendInput(value);
+          }
+        });
+      });
+
+     
+      window.addEventListener('keydown', e => {
+        if (
+          (e.key >= '0' && e.key <= '9') ||
+          ['+', '-', '*', '/', '.'].includes(e.key)
+        ) {
+          e.preventDefault();
+          appendInput(e.key);
+        } else if (e.key === 'Enter' || e.key === '=') {
+          e.preventDefault();
+          calculate();
+        } else if (e.key === 'Backspace') {
+          e.preventDefault();
+          
+          if (currentInput.length > 1) {
+            currentInput = currentInput.slice(0, -1);
+            if (!/[0-9]$/.test(currentInput)) {
+              lastInputType = 'operator';
+            } else {
+              lastInputType = 'number';
+            }
+          } else {
+            clearInput();
+          }
+          updateDisplay();
+        } else if (e.key.toLowerCase() === 'c') {
+          e.preventDefault();
+          clearInput();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
